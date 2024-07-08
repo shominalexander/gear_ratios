@@ -1,7 +1,7 @@
 use std::io::Write; //println!("{:?} bytes written to {}", std::fs::OpenOptions::new().truncate(true).write(true).open(&path).unwrap().write(&text.as_bytes()).unwrap(), &path);
 
 fn main() {
- let     args    : Vec<String> = std::env::args().collect();
+ let     args    : Vec<String> = std::env::args().collect() ;
  let     file    : &String     = &args[1].trim().to_string();
  let mut first   : f32         = 14.4f32                    ;
  let     folder  : &String     = &args[3].trim().to_string();
