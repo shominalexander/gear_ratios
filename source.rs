@@ -97,14 +97,32 @@ fn main() {
 
  text = text.clone() + &"\n".to_string();
 
- if !std::path::Path::new(folder).exists() {
-  match std::fs::create_dir(folder) {
-   Ok(result) => { println!("result: {:?}", result); }
-   Err(error) => { println!("error: {:?}", error); }
-  }//match std::fs::create_dir(folder) {
- }//if !std::path::Path::new(folder).exists() {
+ println!("folder: {:?}", folder);
+
+ let parts: Vec<&str> = folder.split("\\").collect();
+
+ let mut level: String = String::new();
+
+ for part in parts.iter() {
+  if level.trim().len() > 0 {
+   level = level.to_owned() + "\\" + part;
+
+  } else {//if level.trim().len() > 0 {
+   level = part.to_string();
+
+  }//} else {//if level.trim().len() > 0 {
+
+  if !std::path::Path::new(&level).exists() {
+   match std::fs::create_dir(&level) {
+    Ok(result) => { println!("result: {:?}", result); }
+    Err(error) => { println!("error: {:?}", error); }
+   }//match std::fs::create_dir(&level) {
+  }//if !std::path::Path::new(&level).exists() {
+ }//for part in parts.iter() {
 
  let path: String = folder.to_owned() + if (&folder[..]).chars().nth(folder.trim().len()) == Some('\\') { "" } else { "\\" } + file;
+
+ println!("path: {:?}", path);
 
  if !std::path::Path::new(&path).exists() {
   match std::fs::File::create(path.clone()) {
